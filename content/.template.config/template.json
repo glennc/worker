@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Microsoft",
+    "classifications": [
+        "Common",
+        "Worker"
+    ],
+    "tags": {
+        "language": "C#",
+        "type": "project"
+      },
+    "identity": "Microsoft.WorkerTemplate.CSharp",
+    "name": "Background Worker",
+    "shortName": "worker",
+    "sourceName": "workerproto",
+    "symbols": {
+        "workertype": {
+            "type": "parameter",
+            "datatype": "choice",
+            "choices": [
+                {
+                    "choice": "empty",
+                    "description": "a minimal worker app."
+                },
+                {
+                    "choice": "webjobs",
+                    "description": "a worker app using the WebJobs SDK."
+                }
+            ],
+            "defaultValue": "empty",
+            "description": "The type of worker, HostedServices or WebJobs SDK for example."
+        },
+        "Empty": {
+            "type": "computed",
+            "value": "(workertype == \"empty\")"
+        },
+        "WebJobs": {
+            "type": "computed",
+            "value": "(workertype == \"webjobs\")"
+        }
+    },
+    "sources": [
+        {
+            "modifiers": []
+        }
+    ]
+}

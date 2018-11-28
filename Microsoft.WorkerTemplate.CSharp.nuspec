@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.WorkerTemplate.CSharp</id>
+    <version>1.0.0</version>
+    <description>
+      Creates a Worker application designed for performaning long-running background work.
+    </description>
+    <authors>Microsoft</authors>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+</package>
