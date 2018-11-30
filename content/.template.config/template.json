@@ -10,7 +10,7 @@
         "type": "project"
       },
     "identity": "Microsoft.WorkerTemplate.CSharp",
-    "name": "Background Worker",
+    "name": "Worker",
     "shortName": "worker",
     "sourceName": "workerproto",
     "symbols": {
@@ -37,11 +37,53 @@
         "WebJobs": {
             "type": "computed",
             "value": "(workertype == \"webjobs\")"
-        }
+        },
+        "docker": {
+            "type": "parameter",
+            "datatype": "choice",
+            "description": "Include a Dockerfile with this template",
+            "choices": [
+                {
+                    "choice": "none",
+                    "description": "No Dockerfile (default)"
+                },
+               {
+                   "choice": "windows",
+                   "description": "Create a Windows based Dockerfile"
+               },
+               {
+                  "choice": "linux",
+                  "description": "Create a Linux based Dockerfile"
+               }
+            ],
+            "defaultValue": "none",
+            "DefaultIfOptionWithoutValue": "linux"
+          }
     },
     "sources": [
         {
-            "modifiers": []
+            "modifiers": [
+                {
+                    "condition": "(docker == 'none')",
+                    "exclude": [
+                        "Dockerfile.windows", "Dockerfile.linux"
+                    ]
+                },
+                {
+                    "condition": "(docker == 'linux')",
+                    "rename": { "Dockerfile.linux" : "Dockerfile" },
+                    "exclude": [
+                        "Dockerfile.windows"
+                    ]
+                },
+                {
+                    "condition": "(docker == 'windows')",
+                    "rename": { "Dockerfile.windows" : "Dockerfile" },
+                    "exclude": [
+                        "Dockerfile.linux"
+                    ]
+                }
+            ]
         }
     ]
 }

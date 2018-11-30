@@ -20,10 +20,16 @@ namespace workerproto
             Host.CreateDefaultBuilder(args)
 #if WebJobs
                 .ConfigureWebJobs(webJobsBuilder => webJobsBuilder.AddTimers())
-                .ConfigureServices(services => services.AddSingleton<ScheduleMonitor, FileSystemScheduleMonitor>());
+#endif
+                .ConfigureServices(services => {
+                    services.AddHealthChecks()
+                            .AddSocketListener(8080);
+#if WebJobs
+                    services.AddSingleton<ScheduleMonitor, FileSystemScheduleMonitor>();
 #endif
 #if Empty
-                .ConfigureServices(services => services.AddHostedService<Worker>());
+                    services.AddHostedService<Worker>();
 #endif
+                });
     }
 }
