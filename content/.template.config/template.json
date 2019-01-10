@@ -58,6 +58,13 @@
             ],
             "defaultValue": "none",
             "DefaultIfOptionWithoutValue": "linux"
+          },
+          "helm": {
+            "type": "parameter",
+            "datatype": "bool",
+            "description": "Generate a HELM chart template.",
+            "defaultValue": "false",
+            "isRequired": false
           }
     },
     "sources": [
@@ -82,6 +89,10 @@
                     "exclude": [
                         "Dockerfile.linux"
                     ]
+                },
+                {
+                    "condition": "!helm",
+                    "exclude": [ "workerproto" ]
                 }
             ]
         }
